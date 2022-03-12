@@ -44,23 +44,26 @@ const Filecomponent = () => {
     }
   };
   const handleUpload = () => {
-    console.log(file);
     setUploading(true);
     const storageRef = ref(storage, "files/" + file.name);
     const metadata = {
       contentType: file.type,
     };
+
     uploadBytes(storageRef, file, metadata)
       .then((snapshot) => {
         console.log("Uploaded file!");
-        addDoc(collection(db, "myFiles"), {
-          timestamp: serverTimestamp(),
-          caption: file.name,
-          size: file.size,
-          url: getDownloadURL(storageRef),
+        getDownloadURL(storageRef).then((url) => {
+          addDoc(collection(db, "myFiles"), {
+            timestamp: serverTimestamp(),
+            caption: file.name,
+            size: file.size,
+            url: url,
+          });
         });
       })
       .catch((err) => console.log(err));
+
     setUploading(false);
     setOpen(false);
     setFile(null);

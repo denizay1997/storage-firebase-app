@@ -3,6 +3,7 @@ import "./FileViewer.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import FileItem from "./FileItem";
+import FileCard from "./FileCard";
 
 export default function FileViewer() {
   const [files, setFiles] = useState();
@@ -18,7 +19,11 @@ export default function FileViewer() {
   }, []);
   return (
     <div className="fileViewer">
-      <div className="fileViewer__row"></div>
+      <div className="fileViewer__row">
+        {files?.map(({ id, item }) => (
+          <FileCard key={id} name={item.caption} url={item.url} id={id} />
+        ))}
+      </div>
       <div className="fileViewer__titles">
         <div className="fileViewer__titles--left">
           <p>Name</p>
@@ -28,14 +33,14 @@ export default function FileViewer() {
           <p>File size</p>
         </div>
       </div>
-      {files?.map((item) => (
+      {files?.map(({ id, item }) => (
         <FileItem
-          key={item.id}
-          id={item.id}
-          size={item.item.size}
-          caption={item.item.caption}
-          timestamp={item.item.timestamp}
-          url={item.item.url}
+          key={id}
+          id={id}
+          size={item.size}
+          caption={item.caption}
+          timestamp={item.timestamp}
+          url={item.url}
         />
       ))}
     </div>
