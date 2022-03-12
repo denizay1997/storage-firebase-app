@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Filecomponent = () => {
+const Filecomponent = ({ getFiles }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
@@ -46,11 +46,8 @@ const Filecomponent = () => {
   const handleUpload = () => {
     setUploading(true);
     const storageRef = ref(storage, "files/" + file.name);
-    const metadata = {
-      contentType: file.type,
-    };
 
-    uploadBytes(storageRef, file, metadata)
+    uploadBytes(storageRef, file)
       .then((snapshot) => {
         console.log("Uploaded file!");
         getDownloadURL(storageRef).then((url) => {
@@ -60,7 +57,10 @@ const Filecomponent = () => {
             size: file.size,
             url: url,
           });
+          getFiles();
         });
+
+        console.log("added file");
       })
       .catch((err) => console.log(err));
 

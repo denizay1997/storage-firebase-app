@@ -7,13 +7,15 @@ import { db, storage } from "../firebase";
 import { ref, deleteObject } from "firebase/storage";
 import { doc, deleteDoc } from "firebase/firestore";
 
-const FileCard = ({ name, url, id }) => {
+const FileCard = ({ name, url, id, getFiles }) => {
   const handleDelete = (name, id) => {
     const desertRef = ref(storage, "files/" + name);
+    deleteDoc(doc(db, "myFiles", id));
     deleteObject(desertRef)
       .then((del) => {
-        console.log("delted file");
-        deleteDoc(doc(db, "myFiles", id));
+        console.log("deleted file");
+
+        getFiles();
       })
       .catch((err) => console.log(err));
   };

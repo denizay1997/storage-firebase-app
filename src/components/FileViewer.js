@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./FileViewer.css";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+
 import FileItem from "./FileItem";
 import FileCard from "./FileCard";
 
-export default function FileViewer() {
-  const [files, setFiles] = useState();
+const FileViewer = ({ files, setFiles, getFiles }) => {
   useEffect(() => {
-    getDocs(collection(db, "myFiles")).then((item) => {
-      setFiles(
-        item.docs.map((doc) => ({
-          id: doc.id,
-          item: doc.data(),
-        }))
-      );
-    });
+    getFiles();
   }, []);
   return (
     <div className="fileViewer">
       <div className="fileViewer__row">
         {files?.map(({ id, item }) => (
-          <FileCard key={id} name={item.caption} url={item.url} id={id} />
+          <FileCard
+            key={id}
+            name={item.caption}
+            url={item.url}
+            id={id}
+            getFiles={getFiles}
+          />
         ))}
       </div>
       <div className="fileViewer__titles">
@@ -45,4 +42,6 @@ export default function FileViewer() {
       ))}
     </div>
   );
-}
+};
+
+export default FileViewer;

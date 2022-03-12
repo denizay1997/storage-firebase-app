@@ -10,10 +10,10 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import StorageIcon from "@material-ui/icons/Storage";
 import "./Sidebar.css";
 
-export default function Sidebar() {
+const Sidebar = ({ getFiles }) => {
   return (
     <div className="sidebar">
-      <FileComponent />
+      <FileComponent getFiles={getFiles} />
       <div className="sidebar__itemsContainer">
         <SidebarItem arrow icon={<InsertDriveFileIcon />} label={"My Drive"} />
         <SidebarItem
@@ -30,4 +30,6 @@ export default function Sidebar() {
       </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
