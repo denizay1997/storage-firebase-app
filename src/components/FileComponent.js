@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import "./FileComponent.css";
-
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { storage, db } from "../firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 
@@ -44,12 +44,21 @@ const Filecomponent = () => {
     }
   };
   const handleUpload = () => {
+    console.log(file);
     setUploading(true);
     const storageRef = ref(storage, "files/" + file.name);
-    console.log(storageRef);
-    uploadBytes(storageRef, file)
+    const metadata = {
+      contentType: file.type,
+    };
+    uploadBytes(storageRef, file, metadata)
       .then((snapshot) => {
         console.log("Uploaded file!");
+        addDoc(collection(db, "myFiles"), {
+          timestamp: serverTimestamp(),
+          caption: file.name,
+          size: file.size,
+          url: getDownloadURL(storageRef),
+        });
       })
       .catch((err) => console.log(err));
     setUploading(false);
