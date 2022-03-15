@@ -3,10 +3,10 @@ Storage app like google drive. Can't use google chrome open link. Because chrome
 ![image](https://user-images.githubusercontent.com/29174043/158473090-b8fcd0eb-cb72-4e0e-b4c3-2c521628c04f.png)
 ![image](https://user-images.githubusercontent.com/29174043/158473272-d1af54c6-f192-42f2-8378-b55aaa57c066.png)
 
---- Authentication with google auth \n
---- Add a new file using firebase storage \n
---- Delete your file \n
---- Search file \n
+--- Authentication with google auth <br/>
+--- Add a new file using firebase storage <br/>
+--- Delete your file <br/>
+--- Search file <br/>
 --- Collect file's size, URL, timestamp, and name with firebase firestore database 
 
 
