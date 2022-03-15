@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./FileCard.css";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -7,7 +7,7 @@ import { db, storage } from "../firebase";
 import { ref, deleteObject } from "firebase/storage";
 import { doc, deleteDoc } from "firebase/firestore";
 
-const FileCard = ({ name, url, id, getFiles }) => {
+const FileCard = ({ id, name, url, getFiles }) => {
   const handleDelete = (name, id) => {
     const desertRef = ref(storage, "files/" + name);
     deleteDoc(doc(db, "myFiles", id));
@@ -19,6 +19,9 @@ const FileCard = ({ name, url, id, getFiles }) => {
       })
       .catch((err) => console.log(err));
   };
+  useEffect(() => {
+    console.log(name);
+  });
   return (
     <div className="fileCard">
       <a href={url} target="_blank" rel="noreferrer" download>

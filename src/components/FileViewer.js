@@ -4,22 +4,27 @@ import "./FileViewer.css";
 import FileItem from "./FileItem";
 import FileCard from "./FileCard";
 
-const FileViewer = ({ files, setFiles, getFiles }) => {
+const FileViewer = ({ files, setFiles, getFiles, searchText }) => {
   useEffect(() => {
     getFiles();
   }, []);
   return (
     <div className="fileViewer">
       <div className="fileViewer__row">
-        {files?.map(({ id, item }) => (
-          <FileCard
-            key={id}
-            name={item.caption}
-            url={item.url}
-            id={id}
-            getFiles={getFiles}
-          />
-        ))}
+        {files
+          ?.filter((data) => {
+            return data.item.caption
+              .toLowerCase()
+              .includes(searchText.toLowerCase());
+          })
+          ?.map(({ id, item }) => (
+            <FileCard
+              id={id}
+              url={item.url}
+              name={item.caption}
+              getFiles={getFiles}
+            />
+          ))}
       </div>
       <div className="fileViewer__titles">
         <div className="fileViewer__titles--left">

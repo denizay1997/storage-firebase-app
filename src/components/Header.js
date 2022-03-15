@@ -7,7 +7,7 @@ import AppsIcon from "@material-ui/icons/Apps";
 import { Avatar } from "@material-ui/core";
 import "./Header.css";
 
-const Header = ({ userPhoto }) => {
+const Header = ({ userPhoto, searchText, setSearchText }) => {
   return (
     <div className="header">
       <div className="header__logo">
@@ -17,7 +17,13 @@ const Header = ({ userPhoto }) => {
       <div className="header__serchContainer">
         <div className="header__searchBar">
           <SearchIcon />
-          <input type="text" placeholder="Search in Storage" />
+          <input
+            type="text"
+            placeholder="Search in Storage"
+            onChange={(event) => {
+              setSearchText(event.target.value);
+            }}
+          />
           <ExpandMoreIcon />
         </div>
       </div>

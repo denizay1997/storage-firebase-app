@@ -10,6 +10,7 @@ import { signInWithPopup } from "firebase/auth";
 function App() {
   const [user, setUser] = useState(null);
   const [files, setFiles] = useState();
+  const [searchText, setSearchText] = useState("");
   const handleLogin = () => {
     if (!user) {
       signInWithPopup(auth, provider)
@@ -27,14 +28,24 @@ function App() {
       );
     });
   };
+
   return (
     <div className="App">
       {user ? (
         <>
-          <Header userPhoto={user?.photoURL} />
+          <Header
+            userPhoto={user?.photoURL}
+            searchText={searchText}
+            setSearchText={setSearchText}
+          />
           <div className="app__main">
             <Sidebar getFiles={getFiles} />
-            <FileViewer files={files} setFile={setFiles} getFiles={getFiles} />
+            <FileViewer
+              files={files}
+              setFile={setFiles}
+              getFiles={getFiles}
+              searchText={searchText}
+            />
           </div>
         </>
       ) : (
