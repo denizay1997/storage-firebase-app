@@ -7,7 +7,7 @@ import AppsIcon from "@material-ui/icons/Apps";
 import { Avatar } from "@material-ui/core";
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ userPhoto }) => {
   return (
     <div className="header">
       <div className="header__logo">
@@ -27,7 +27,7 @@ const Header = () => {
           <SettingsIcon />
         </span>
         <AppsIcon />
-        <Avatar className="header__iconsAvatar" />
+        <Avatar src={userPhoto} />
       </div>
     </div>
   );

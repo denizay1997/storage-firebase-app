@@ -5,9 +5,18 @@ import Sidebar from "./components/Sidebar";
 import { useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
-
+import { auth, provider } from "./firebase";
+import { signInWithPopup } from "firebase/auth";
 function App() {
+  const [user, setUser] = useState(null);
   const [files, setFiles] = useState();
+  const handleLogin = () => {
+    if (!user) {
+      signInWithPopup(auth, provider)
+        .then((result) => setUser(result.user))
+        .catch((error) => alert(error.massege));
+    }
+  };
   const getFiles = () => {
     getDocs(collection(db, "myFiles")).then((item) => {
       setFiles(
@@ -20,11 +29,20 @@ function App() {
   };
   return (
     <div className="App">
-      <Header />
-      <div className="app__main">
-        <Sidebar getFiles={getFiles} />
-        <FileViewer files={files} setFile={setFiles} getFiles={getFiles} />
-      </div>
+      {user ? (
+        <>
+          <Header userPhoto={user?.photoURL} />
+          <div className="app__main">
+            <Sidebar getFiles={getFiles} />
+            <FileViewer files={files} setFile={setFiles} getFiles={getFiles} />
+          </div>
+        </>
+      ) : (
+        <div className="app_login">
+          <img src="logo512.png" alt="Storage" />
+          <button onClick={handleLogin}>Log in to Storage</button>
+        </div>
+      )}
     </div>
   );
 }
