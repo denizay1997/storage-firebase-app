@@ -2,8 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCui4BVLB1-ODkyntg8X2bU09TW_m5Fxe0",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "storage-firebase-app-63447.firebaseapp.com",
   projectId: "storage-firebase-app-63447",
   storageBucket: "storage-firebase-app-63447.appspot.com",
