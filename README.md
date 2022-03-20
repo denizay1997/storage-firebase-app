@@ -1,4 +1,4 @@
-Storage app like google drive. Can't use google chrome open link. Because chrome doesn't open this site like google drive. Try another web browser.
+Storage app like google drive. 
 
 ![image](https://user-images.githubusercontent.com/29174043/158473090-b8fcd0eb-cb72-4e0e-b4c3-2c521628c04f.png)
 ![image](https://user-images.githubusercontent.com/29174043/158473272-d1af54c6-f192-42f2-8378-b55aaa57c066.png)
